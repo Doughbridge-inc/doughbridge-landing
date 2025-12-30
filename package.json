@@ -1,0 +1,16 @@
+{
+  "name": "doughbridge",
+  "version": "1.0.0",
+  "description": "Modern Fintech Landing Page",
+  "scripts": {
+    "start": "npx serve deploy",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "fintech",
+    "react",
+    "landing-page"
+  ],
+  "author": "",
+  "license": "ISC"
+}

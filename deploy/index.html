@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doughbridge | Future of Finance</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- React & ReactDOM (CDN) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel Standalone -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="src/styles/app.css" />
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" src="src/components/Navbar.jsx"></script>
+    <script type="text/babel" src="src/components/Hero.jsx"></script>
+    <script type="text/babel" src="src/components/LiveRatesTicker.jsx"></script>
+    <script type="text/babel" src="src/components/FeaturesGrid.jsx"></script>
+    <script type="text/babel" src="src/components/VirtualCardSection.jsx"></script>
+    <script type="text/babel" src="src/components/Calculator.jsx"></script>
+    <script type="text/babel" src="src/components/Footer.jsx"></script>
+
+    <!-- Main App -->
+    <script type="text/babel" src="src/App.jsx"></script>
+
+    <!-- Icon Init -->
+    <script>
+        window.addEventListener('load', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+
+</html>
