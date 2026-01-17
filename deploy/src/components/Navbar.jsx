@@ -1,6 +1,6 @@
 const Navbar = () => {
-    const [isOpen, setIsOpen] = React.useState(false);
     const [scrolled, setScrolled] = React.useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -10,45 +10,70 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Prevent body scroll when mobile menu is open
+    React.useEffect(() => {
+        if (mobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [mobileMenuOpen]);
+
+    const toggleMobileMenu = () => {
+        setMobileMenuOpen(!mobileMenuOpen);
+    };
+
+    const closeMobileMenu = () => {
+        setMobileMenuOpen(false);
+    };
+
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="container nav-content flex justify-between items-center">
-                <a href="#" className="logo text-2xl font-bold text-white no-underline">
+                <a href="#" className="logo text-2xl font-bold text-white no-underline" style={{ textDecoration: 'none' }}>
                     Doughbridge<span className="text-primary">.</span>
                 </a>
 
                 {/* Desktop Links */}
-                {/* Desktop Links */}
-                <div className="hidden md:flex items-center gap-8">
-                    <a href="#features" className="text-dim hover:text-white transition">Features</a>
-                    <a href="#card" className="text-dim hover:text-white transition">Card</a>
-                    <a href="#invest" className="text-dim hover:text-white transition">Invest</a>
-                    <a href="#pricing" className="text-dim hover:text-white transition">Pricing</a>
+                <div className="hidden md:flex items-center gap-8 desktop-nav">
+                    <a href="#features" className="nav-link">Features</a>
+                    <a href="#card" className="nav-link">Card</a>
+                    <a href="#invest" className="nav-link">Invest</a>
+                    <a href="#pricing" className="nav-link">Pricing</a>
                 </div>
 
-                <div className="hidden md:flex items-center gap-4">
+                {/* Desktop Buttons */}
+                <div className="hidden md:flex items-center gap-4 desktop-nav">
                     <button className="btn btn-glass">Log In</button>
                     <button className="btn btn-primary">Get App</button>
                 </div>
 
-                {/* Mobile Toggle */}
-                <div className="mobile-toggle md:hidden cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-                    <i data-lucide={isOpen ? "x" : "menu"}></i>
-                </div>
+                {/* Mobile Menu Button */}
+                <button
+                    className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`}
+                    onClick={toggleMobileMenu}
+                    aria-label="Toggle mobile menu"
+                >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
 
-            {/* Mobile Menu */}
-            {isOpen && (
-                <div className="mobile-menu absolute top-full left-0 w-full bg-card p-4 flex flex-col gap-4 border-b border-white/10">
-                    <a href="#features" onClick={() => setIsOpen(false)}>Features</a>
-                    <a href="#card" onClick={() => setIsOpen(false)}>Card</a>
-                    <a href="#invest" onClick={() => setIsOpen(false)}>Invest</a>
-                    <div className="mobile-actions flex flex-col gap-2">
-                        <button className="btn btn-glass w-full">Log In</button>
-                        <button className="btn btn-primary w-full">Get App</button>
-                    </div>
+            {/* Mobile Menu Overlay */}
+            <div className={`mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
+                <a href="#features" className="nav-link" onClick={closeMobileMenu}>Features</a>
+                <a href="#card" className="nav-link" onClick={closeMobileMenu}>Card</a>
+                <a href="#invest" className="nav-link" onClick={closeMobileMenu}>Invest</a>
+                <a href="#pricing" className="nav-link" onClick={closeMobileMenu}>Pricing</a>
+                <div className="flex flex-col gap-4" style={{ marginTop: '1rem' }}>
+                    <button className="btn btn-glass" onClick={closeMobileMenu}>Log In</button>
+                    <button className="btn btn-primary" onClick={closeMobileMenu}>Get App</button>
                 </div>
-            )}
+            </div>
         </nav>
     );
 };
